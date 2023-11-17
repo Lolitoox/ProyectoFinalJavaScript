@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Proyecto</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>Lista de Elementos</h1>
+        <label for="filtro">Filtrar por:</label>
+        <select id="filtro">
+            <option value="todos">Todos</option>
+            <option value="tipo1">Tipo 1</option>
+            <option value="tipo2">Tipo 2</option>
+        </select>
+        <ul id="lista-elementos"></ul>
+
+        <h2>Agregar Elemento</h2>
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <button id="agregar">Agregar</button>
+    </div>
+    <script src="JS/main.js"></script>
+</body>
+
+</html>
