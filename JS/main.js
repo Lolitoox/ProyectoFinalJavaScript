@@ -10,11 +10,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Función para obtener datos desde el archivo JSON usando fetch
     const obtenerDatos = async () => {
         try {
-            const response = await fetch('datos.json');
-            datos = await response.json();
+            // Intentamos obtener datos desde localStorage
+            const storedData = localStorage.getItem('misDatos');
+            if (storedData) {
+                datos = JSON.parse(storedData);
+            } else {
+                // Si no hay datos en localStorage, obtenemos datos usando fetch
+                const response = await fetch('datos.json');
+                datos = await response.json();
+                // Guardamos los datos en localStorage para futuros accesos más rápidos
+                localStorage.setItem('misDatos', JSON.stringify(datos));
+            }
         } catch (error) {
             console.error('Error al obtener los datos:', error);
         }
+    };
+
+    // Función para guardar los datos en localStorage
+    const guardarDatosEnLocalStorage = () => {
+        localStorage.setItem('misDatos', JSON.stringify(datos));
     };
 
     // Función para mostrar la lista de elementos en el DOM
@@ -66,6 +80,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 datos.push(nuevoElemento);
                 renderizarFiltro(); // Actualizar las opciones del filtro
                 renderizarLista(datos);
+                guardarDatosEnLocalStorage(); // Guardar los datos en localStorage
 
                 // Limpiar los campos después de agregar el elemento
                 tipoInput.value = '';
@@ -84,6 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             datos.splice(index, 1);
             renderizarFiltro(); // Actualizar las opciones del filtro
             renderizarLista(datos);
+            guardarDatosEnLocalStorage(); // Guardar los datos actualizados en localStorage
         } catch (error) {
             console.error(error);
         }
